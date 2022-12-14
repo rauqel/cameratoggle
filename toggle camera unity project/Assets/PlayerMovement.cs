@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ground Check")]
     public float playerHeight;
+    //public GameObject groundChecker;
     public LayerMask whatIsGround;
     bool grounded;
 
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // ground checker
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        //grounded = Physics.CheckSphere(groundChecker.transform.position, 0.1f, whatIsGround);
 
         // handle drag
         if (grounded)
@@ -72,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         // when to jump
         if (Input.GetKey(jumpKey) && grounded && readyToJump)
         {
+            Debug.Log("trying");
             readyToJump = false;
 
             Jumping();
@@ -110,6 +113,8 @@ public class PlayerMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             myRigidBody.velocity = new Vector3(limitedVel.x, myRigidBody.velocity.y, limitedVel.z);
         }
+
+        
     }
 
     private void Jumping()
